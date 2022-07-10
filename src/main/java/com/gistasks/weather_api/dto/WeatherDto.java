@@ -1,5 +1,7 @@
 package com.gistasks.weather_api.dto;
 
+import com.gistasks.weather_api.entity.WeatherEntity;
+
 public class WeatherDto {
 
     private double temp;
@@ -13,6 +15,18 @@ public class WeatherDto {
     private long timestamp;
 
     public WeatherDto() {
+    }
+
+    public WeatherDto(WeatherEntity weatherEntity) {
+        this.temp = weatherEntity.getTemp();
+        this.feelsLike = weatherEntity.getFeelsLike();
+        this.tempMin = weatherEntity.getTempMin();
+        this.tempMax = weatherEntity.getTempMax();
+        this.pressure = weatherEntity.getPressure();
+        this.humidity = weatherEntity.getHumidity();
+        this.windSpeed = weatherEntity.getWindSpeed();
+        this.windDegree = weatherEntity.getWindDegree();
+        this.timestamp = weatherEntity.getTimestamp();
     }
 
     public double getTemp() {

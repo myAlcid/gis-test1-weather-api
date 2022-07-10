@@ -1,5 +1,6 @@
 package com.gistasks.weather_api.dto;
 
+import com.gistasks.weather_api.entity.CityEntity;
 import com.sun.istack.NotNull;
 
 import javax.validation.constraints.Size;
@@ -18,6 +19,12 @@ public class CityDto {
         this.longitude = longitude;
         this.latitude = latitude;
     }
+    public CityDto(CityEntity cityEntity) {
+        this.name = cityEntity.getName();
+        this.longitude = cityEntity.getLongitude();
+        this.latitude = cityEntity.getLatitude();
+    }
+
 
     public String getName() {
         return name;

@@ -27,7 +27,7 @@ public class Controller {
     }
 
     @GetMapping("/cities")
-    public CityEntity findCityByName(@RequestParam(value = "name") String name) {
+    public CityEntity findCityByName(@RequestParam(value = "city") String name) {
         return service.getCityByName(name);
     }
 
