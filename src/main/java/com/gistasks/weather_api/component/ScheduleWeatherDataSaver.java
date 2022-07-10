@@ -20,7 +20,7 @@ public class ScheduleWeatherDataSaver {
     @Autowired
     private WeatherRepository weatherRepository;
 
-    @Scheduled(cron = "0 */2 * * *")
+    @Scheduled(cron = "0 0 */2 * * ?")
     public void scheduleWeatherSave() {
         List<CityEntity> cityEntities = cityRepository.findAll();
         for (CityEntity city : cityEntities) {
