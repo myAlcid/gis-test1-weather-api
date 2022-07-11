@@ -1,30 +1,23 @@
 package com.gistasks.weather_api.dto;
 
-import com.gistasks.weather_api.entity.CityEntity;
 import com.sun.istack.NotNull;
 
 import javax.validation.constraints.Size;
 
 public class CityDto {
-    @NotNull
-    @Size(min=2,max=20)
+
+    private long id;
     private String name;
-    @NotNull
     private double longitude;
-    @NotNull
     private double latitude;
 
-    public CityDto(String name, double longitude, double latitude) {
-        this.name = name;
-        this.longitude = longitude;
-        this.latitude = latitude;
-    }
-    public CityDto(CityEntity cityEntity) {
-        this.name = cityEntity.getName();
-        this.longitude = cityEntity.getLongitude();
-        this.latitude = cityEntity.getLatitude();
+    public long getId() {
+        return id;
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

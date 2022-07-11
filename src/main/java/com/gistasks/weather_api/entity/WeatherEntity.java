@@ -24,20 +24,7 @@ public class WeatherEntity {
     private CityEntity city;
 
     public WeatherEntity() {
-
     }
-    public WeatherEntity(WeatherDto weatherDto) {
-        this.temp = weatherDto.getTemp();
-        this.feelsLike = weatherDto.getFeelsLike();
-        this.tempMin = weatherDto.getTempMin();
-        this.tempMax = weatherDto.getTempMax();
-        this.pressure = weatherDto.getPressure();
-        this.humidity = weatherDto.getHumidity();
-        this.windSpeed = weatherDto.getWindSpeed();
-        this.windDegree = weatherDto.getWindDegree();
-        this.timestamp = weatherDto.getTimestamp();
-    }
-
 
     public CityEntity getCity() {
         return city;

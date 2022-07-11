@@ -10,8 +10,8 @@ import java.util.List;
 
 public interface WeatherRepository extends JpaRepository<WeatherEntity,Integer> {
     @Query("SELECT w FROM WeatherEntity w WHERE w.city = ?1 AND w.timestamp >=?2 AND w.timestamp <=?3 ORDER BY w.timestamp")
-    List<WeatherDto> getHistory(CityEntity city, long from, long to);
+    List<WeatherEntity> getHistory(CityEntity city, long from, long to);
 
-    WeatherDto findFirstByCityOrderByTimestampDesc (CityEntity city);
+    WeatherEntity findFirstByCityOrderByTimestampDesc (CityEntity city);
 
 }

@@ -1,6 +1,7 @@
 package com.gistasks.weather_api.controller;
 
 import com.gistasks.weather_api.dto.CityDto;
+import com.gistasks.weather_api.dto.CreateCityDto;
 import com.gistasks.weather_api.dto.WeatherDto;
 import com.gistasks.weather_api.entity.CityEntity;
 import com.gistasks.weather_api.service.CityService;
@@ -22,12 +23,12 @@ public class Controller {
 
 
     @PostMapping("/cities")
-    public CityEntity addCity(@RequestBody @Valid CityDto сityDto) {
-        return service.saveCity(сityDto);
+    public CityDto addCity(@RequestBody @Valid CreateCityDto createCityDto) {
+        return service.saveCity(createCityDto);
     }
 
     @GetMapping("/cities")
-    public CityEntity findCityByName(@RequestParam(value = "city") String name) {
+    public CityDto findCityByName(@RequestParam(value = "city") String name) {
         return service.getCityByName(name);
     }
 

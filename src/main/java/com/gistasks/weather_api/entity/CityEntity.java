@@ -1,7 +1,5 @@
 package com.gistasks.weather_api.entity;
 
-import com.gistasks.weather_api.dto.CityDto;
-
 import javax.persistence.*;
 
 @Entity
@@ -14,14 +12,7 @@ public class CityEntity {
     private double longitude;
     private double latitude;
 
-    public CityEntity(CityDto createCityDto){
-        this.name = createCityDto.getName();
-        this.longitude = createCityDto.getLongitude();
-        this.latitude = createCityDto.getLatitude();
-    }
-
     public CityEntity() {
-
     }
 
     public long getId() {

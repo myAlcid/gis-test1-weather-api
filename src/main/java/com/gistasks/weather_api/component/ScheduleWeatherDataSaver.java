@@ -3,6 +3,7 @@ package com.gistasks.weather_api.component;
 import com.gistasks.weather_api.dto.WeatherDto;
 import com.gistasks.weather_api.entity.CityEntity;
 import com.gistasks.weather_api.entity.WeatherEntity;
+import com.gistasks.weather_api.mapper.WeatherMapper;
 import com.gistasks.weather_api.repository.CityRepository;
 import com.gistasks.weather_api.repository.WeatherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ScheduleWeatherDataSaver {
         List<CityEntity> cityEntities = cityRepository.findAll();
         for (CityEntity city : cityEntities) {
             WeatherDto weatherDto = weatherApiClient.getCurrentWeather(city.getLatitude(), city.getLongitude());
-            WeatherEntity weatherEntity = new WeatherEntity(weatherDto);
+            WeatherEntity weatherEntity = WeatherMapper.INSTANCE.toWeatherEntity(weatherDto);
             weatherEntity.setCity(city);
             weatherRepository.save(weatherEntity);
         }
