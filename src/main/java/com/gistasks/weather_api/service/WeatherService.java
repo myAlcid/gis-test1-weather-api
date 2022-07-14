@@ -3,6 +3,7 @@ package com.gistasks.weather_api.service;
 import com.gistasks.weather_api.dto.WeatherDto;
 import com.gistasks.weather_api.entity.CityEntity;
 import com.gistasks.weather_api.entity.WeatherEntity;
+import com.gistasks.weather_api.exeptions.DataNotFoundException;
 import com.gistasks.weather_api.mapper.WeatherMapper;
 import com.gistasks.weather_api.repository.CityRepository;
 import com.gistasks.weather_api.repository.WeatherRepository;
@@ -18,15 +19,29 @@ public class WeatherService {
     @Autowired
     private CityRepository cityRepository;
 
-    public WeatherDto getCurrentByCityName(String cityName) {
+    public WeatherDto getCurrentByCityName(String cityName) throws DataNotFoundException {
         CityEntity cityEntity = cityRepository.findByName(cityName);
+        if (cityEntity == null) {
+            throw new DataNotFoundException("city '" + cityName + "' not found!");
+        }
+
         WeatherEntity weatherEntity = weatherRepository.findFirstByCityOrderByTimestampDesc(cityEntity);
-        return WeatherMapper.INSTANCE.toWeatherDto(weatherEntity);
+        if (weatherEntity == null) {
+            throw new DataNotFoundException("weather by city name '" + cityName + "'' not found");
+        } else {
+            return WeatherMapper.INSTANCE.toWeatherDto(weatherEntity);
+        }
     }
 
-    public List<WeatherDto> getHistory(String city, long from, long to) {
-        CityEntity cityEntity = cityRepository.findByName("Lviv");
+    public List<WeatherDto> getHistory(String cityName, long from, long to) throws DataNotFoundException {
+        CityEntity cityEntity = cityRepository.findByName(cityName);
+        if (cityEntity == null) {
+            throw new DataNotFoundException("city '" + cityName + "'' not found!");
+        }
         List<WeatherEntity> weatherEntities = weatherRepository.getHistory(cityEntity, from, to);
+        if(weatherEntities.size() == 0){
+            throw new DataNotFoundException("weather by city name '" + cityName + "' not found");
+        }
         return WeatherMapper.INSTANCE.toWeatherDtos(weatherEntities);
     }
 }

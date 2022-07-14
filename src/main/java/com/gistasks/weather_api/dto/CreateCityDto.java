@@ -1,17 +1,21 @@
 package com.gistasks.weather_api.dto;
 
-import com.sun.istack.NotNull;
 
-import javax.validation.constraints.Size;
+
+import javax.validation.constraints.*;
 
 public class CreateCityDto {
-    @NotNull
-    @Size(min=2,max=20)
+    @NotNull(message = "city name should not be null")
+    @Size(min=2,max=20, message = "size of city name should be between 2 and 20")
     private String name;
+    @NotNull(message = "longitude name should not be null")
+    @Min(value = -180)
+    @Max(value = 180)
+    private Double longitude;
     @NotNull
-    private double longitude;
-    @NotNull
-    private double latitude;
+    @Min(value = -180)
+    @Max(value = 180)
+    private Double latitude;
 
     public String getName() {
         return name;
@@ -21,19 +25,19 @@ public class CreateCityDto {
         this.name = name;
     }
 
-    public double getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
-    public double getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 }
