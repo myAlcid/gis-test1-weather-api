@@ -17,15 +17,15 @@ public class WeatherApiApplication {
         SpringApplication.run(WeatherApiApplication.class, args);
     }
 
-    @Bean
-    CommandLineRunner run (UserService userService){
-        return args -> {
-            userService.saveRole(new Role(null,"ROLE_USER",null));
-
-            userService.saveUser(new UserDto("alex","12345678"));
-            userService.saveUser(new UserDto("root","rootroot"));
-            userService.saveUser(new UserDto("john","abcdabcd"));
-        };
-    }
+//    @Bean
+//    CommandLineRunner run (UserService userService){
+//        return args -> {
+//            userService.saveRole(new Role(null,"ROLE_USER",null));
+//
+//            userService.saveUser(new UserDto("alex","12345678"));
+//            userService.saveUser(new UserDto("root","rootroot"));
+//            userService.saveUser(new UserDto("john","abcdabcd"));
+//        };
+//    }
 
 }
