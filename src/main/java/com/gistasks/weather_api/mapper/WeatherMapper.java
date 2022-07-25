@@ -9,7 +9,7 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface WeatherMapper {
-    WeatherMapper mapper = Mappers.getMapper(WeatherMapper.class);
+    WeatherMapper INSTANCE = Mappers.getMapper(WeatherMapper.class);
 
     WeatherEntity toWeatherEntity(WeatherDto weatherDto);
 

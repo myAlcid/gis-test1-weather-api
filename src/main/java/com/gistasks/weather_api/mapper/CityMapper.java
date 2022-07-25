@@ -8,7 +8,7 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
 public interface CityMapper {
-    CityMapper mapper = Mappers.getMapper(CityMapper.class);
+    CityMapper INSTANCE = Mappers.getMapper(CityMapper.class);
 
     CityEntity toCityEntity(CreateCityDto createCityDto);
 

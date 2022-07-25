@@ -13,13 +13,11 @@ import org.springframework.stereotype.Service;
 public class CityService {
     @Autowired
     private CityRepository cityRepository;
-    @Autowired
-    private CityMapper cityMapper;
 
     public CityDto saveCity(CreateCityDto createCityDto) {
-        CityEntity cityEntityToSave = cityMapper.toCityEntity(createCityDto);
+        CityEntity cityEntityToSave = CityMapper.INSTANCE.toCityEntity(createCityDto);
         CityEntity createdCityEntity = cityRepository.save(cityEntityToSave);
-        return cityMapper.toCityDto(createdCityEntity);
+        return CityMapper.INSTANCE.toCityDto(createdCityEntity);
     }
 
     public CityDto getCityByName(String name) throws DataNotFoundException {
@@ -27,6 +25,6 @@ public class CityService {
         if (cityEntity == null) {
             throw new DataNotFoundException("city with name '" + name + "' not found!");
         } else
-            return cityMapper.toCityDto(cityEntity);
+            return CityMapper.INSTANCE.toCityDto(cityEntity);
     }
 }

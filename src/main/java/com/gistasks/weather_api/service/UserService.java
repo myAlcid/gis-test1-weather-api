@@ -26,8 +26,6 @@ public class UserService {
     private RoleRepository roleRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
-    @Autowired
-    private UserMapper userMapper;
 
     public void saveUser(UserDto userDto) throws UsernameExistException {
         UserEntity newUser = userRepository.findByUsername(userDto.getUsername());
@@ -38,7 +36,7 @@ public class UserService {
         List<Role> userRoles = new ArrayList<>();
         userRoles.add(userRole);
 
-        UserEntity userEntityToSave = userMapper.toUserEntity(userDto);
+        UserEntity userEntityToSave = UserMapper.INSTANCE.toUserEntity(userDto);
         userEntityToSave.setPassword(passwordEncoder.encode(userEntityToSave.getPassword()));
         userEntityToSave.setRoles(userRoles);
 
