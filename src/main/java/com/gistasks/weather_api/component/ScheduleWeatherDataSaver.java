@@ -20,13 +20,15 @@ public class ScheduleWeatherDataSaver {
     private WeatherApiClient weatherApiClient;
     @Autowired
     private WeatherRepository weatherRepository;
+    @Autowired
+    private WeatherMapper weatherMapper;
 
     @Scheduled(cron = "0 0 */2 * * ?")
     public void scheduleWeatherSave() {
         List<CityEntity> cityEntities = cityRepository.findAll();
         for (CityEntity city : cityEntities) {
             WeatherDto weatherDto = weatherApiClient.getCurrentWeather(city.getLatitude(), city.getLongitude());
-            WeatherEntity weatherEntity = WeatherMapper.INSTANCE.toWeatherEntity(weatherDto);
+            WeatherEntity weatherEntity = weatherMapper.toWeatherEntity(weatherDto);
             weatherEntity.setCity(city);
             weatherRepository.save(weatherEntity);
         }

@@ -18,6 +18,8 @@ public class WeatherService {
     private WeatherRepository weatherRepository;
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private WeatherMapper weatherMapper;
 
     public WeatherDto getCurrentByCityName(String cityName) throws DataNotFoundException {
         CityEntity cityEntity = cityRepository.findByName(cityName);
@@ -29,7 +31,7 @@ public class WeatherService {
         if (weatherEntity == null) {
             throw new DataNotFoundException("weather by city name '" + cityName + "'' not found");
         } else {
-            return WeatherMapper.INSTANCE.toWeatherDto(weatherEntity);
+            return weatherMapper.toWeatherDto(weatherEntity);
         }
     }
 
@@ -39,9 +41,9 @@ public class WeatherService {
             throw new DataNotFoundException("city '" + cityName + "'' not found!");
         }
         List<WeatherEntity> weatherEntities = weatherRepository.getHistory(cityEntity, from, to);
-        if(weatherEntities.size() == 0){
+        if (weatherEntities.size() == 0) {
             throw new DataNotFoundException("weather by city name '" + cityName + "' not found");
         }
-        return WeatherMapper.INSTANCE.toWeatherDtos(weatherEntities);
+        return weatherMapper.toWeatherDtos(weatherEntities);
     }
 }

@@ -1,0 +1,80 @@
+databaseChangeLog:
+  - changeSet:
+      id: create users table
+      author: Oleksandr Korniev
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: user_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: user_name
+                  type: VARCHAR(100)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+            tableName: users
+  - changeSet:
+      id: create roles table
+      author: Oleksandr Korniev
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: role_pkey
+                  name: id
+                  type: BIGINT
+              - column:
+                  name: name
+                  type: VARCHAR(100)
+                  defaultValue: ROLE_USER
+            tableName: roles
+  - changeSet:
+      id: create user roles table
+      author: Oleksandr Korniev
+      changes:
+        - createTable:
+            columns:
+              - column:
+                  name: user_id
+                  type: BIGINT
+              - column:
+                  name: role_id
+                  type: BIGINT
+            tableName: user_roles
+  - changeSet:
+      id: add user foreign key to user_roles table
+      author: Oleksandr Korniev
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: user_id
+            baseTableName: user_roles
+            constraintName: fk_user_roles_user
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: users
+  - changeSet:
+      id: add role foreign key to user_roles table
+      author: Oleksandr Korniev
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: role_id
+            baseTableName: user_roles
+            constraintName: fk_user_roles_roles
+            onDelete: CASCADE
+            onUpdate: RESTRICT
+            referencedColumnNames: id
+            referencedTableName: roles
+
+

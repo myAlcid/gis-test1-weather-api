@@ -9,24 +9,24 @@ import com.gistasks.weather_api.repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class CityService {
     @Autowired
     private CityRepository cityRepository;
+    @Autowired
+    private CityMapper cityMapper;
 
     public CityDto saveCity(CreateCityDto createCityDto) {
-        CityEntity cityEntityToSave = CityMapper.INSTANCE.toCityEntity(createCityDto);
+        CityEntity cityEntityToSave = cityMapper.toCityEntity(createCityDto);
         CityEntity createdCityEntity = cityRepository.save(cityEntityToSave);
-        return CityMapper.INSTANCE.toCityDto(createdCityEntity);
+        return cityMapper.toCityDto(createdCityEntity);
     }
 
     public CityDto getCityByName(String name) throws DataNotFoundException {
         CityEntity cityEntity = cityRepository.findByName(name);
-        if (cityEntity == null){
+        if (cityEntity == null) {
             throw new DataNotFoundException("city with name '" + name + "' not found!");
-        }else
-            return CityMapper.INSTANCE.toCityDto(cityEntity);
+        } else
+            return cityMapper.toCityDto(cityEntity);
     }
-
 }

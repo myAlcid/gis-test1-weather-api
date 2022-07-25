@@ -1,25 +1,30 @@
 package com.gistasks.weather_api.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
+import java.util.List;
 
 @Entity
-@Table(name = "City")
+@Table(name = "roles")
 @Data
 @NoArgsConstructor
-public class CityEntity {
+@AllArgsConstructor
+public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
-    @Column(name = "city_name")
+    private Long id;
+    @Column(name = "name")
     private String name;
-    private double longitude;
-    private double latitude;
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
+    private List<UserEntity> userEntities;
 }

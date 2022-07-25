@@ -26,7 +26,7 @@ public class WeatherApiClient {
     public WeatherDto getCurrentWeather(double lat, double lon) {
         String latitude = String.valueOf(lat);
         String longitude = String.valueOf(lon);
-        String url = String.format(baseUrl + "?lat=%s&lon=%s&appid=%s&units=%s", latitude, longitude, apiKey,weatherUnits);
+        String url = String.format(baseUrl + "?lat=%s&lon=%s&appid=%s&units=%s", latitude, longitude, apiKey, weatherUnits);
         WeatherDto weatherDto = new WeatherDto();
 
         try {
@@ -58,7 +58,6 @@ public class WeatherApiClient {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
         return weatherDto;
     }
 }

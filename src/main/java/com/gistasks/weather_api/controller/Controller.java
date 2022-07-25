@@ -15,12 +15,10 @@ import java.util.List;
 @RestController
 @RequestMapping("")
 public class Controller {
-
     @Autowired
     private CityService service;
     @Autowired
     private WeatherService weatherService;
-
 
     @PostMapping("/cities")
     public CityDto addCity(@RequestBody @Valid CreateCityDto createCityDto) {
@@ -28,7 +26,7 @@ public class Controller {
     }
 
     @GetMapping("/cities")
-    public CityDto findCityByName(@RequestParam (value = "city") String name) throws DataNotFoundException {
+    public CityDto findCityByName(@RequestParam(value = "city") String name) throws DataNotFoundException {
         return service.getCityByName(name);
     }
 

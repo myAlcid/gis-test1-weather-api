@@ -9,8 +9,11 @@ import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface WeatherMapper {
-    WeatherMapper INSTANCE = Mappers.getMapper(WeatherMapper.class);
-    WeatherEntity toWeatherEntity (WeatherDto weatherDto);
+
+
+    WeatherEntity toWeatherEntity(WeatherDto weatherDto);
+
     WeatherDto toWeatherDto(WeatherEntity weatherEntity);
+
     List<WeatherDto> toWeatherDtos(List<WeatherEntity> weatherEntities);
 }

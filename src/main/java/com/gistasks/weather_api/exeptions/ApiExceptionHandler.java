@@ -3,6 +3,7 @@ package com.gistasks.weather_api.exeptions;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
@@ -18,7 +19,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @RestControllerAdvice
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
@@ -55,7 +58,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    @ExceptionHandler({ ConstraintViolationException.class })
+    @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
         List<String> errors = new ArrayList<String>();
@@ -70,7 +73,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(
             MethodArgumentTypeMismatchException ex, WebRequest request) {
         String error =
@@ -117,23 +120,38 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
 
-     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-     @ExceptionHandler(DataNotFoundException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(DataNotFoundException.class)
     protected ResponseEntity<Object> handleDataNotFoundException(DataNotFoundException ex) {
-
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND);
         apiError.setMessage("Entity not found");
         apiError.setErrors(Arrays.asList(ex.getMessage()));
-        return new ResponseEntity(apiError,apiError.getStatus());
-     }
+        return new ResponseEntity(apiError, apiError.getStatus());
+    }
 
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(UsernameExistException.class)
+    protected ResponseEntity<Object> handleUsernameExistException(UsernameExistException ex) {
+        ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+        apiError.setMessage("User already exist");
+        apiError.setErrors(Arrays.asList(ex.getMessage()));
+        return new ResponseEntity(apiError, apiError.getStatus());
+    }
 
-    @ExceptionHandler({ Exception.class })
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(AuthenticationException.class)
+    protected ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
+        ApiError apiError = new ApiError(HttpStatus.UNAUTHORIZED);
+        apiError.setMessage("Invalid login or password");
+        apiError.setErrors(Arrays.asList(ex.getMessage()));
+        return new ResponseEntity(apiError, apiError.getStatus());
+    }
+
+    @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
         ApiError apiError = new ApiError(
                 HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(), "error occurred");
         return new ResponseEntity<Object>(
                 apiError, new HttpHeaders(), apiError.getStatus());
     }
-
 }

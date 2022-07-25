@@ -1,9 +1,13 @@
 package com.gistasks.weather_api.dto;
 
+import lombok.Data;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
-import javax.validation.constraints.*;
-
+@Data
 public class CreateCityDto {
     @NotNull(message = "city name should not be null")
     @Size(min=2,max=20, message = "size of city name should be between 2 and 20")
@@ -16,28 +20,4 @@ public class CreateCityDto {
     @Min(value = -180)
     @Max(value = 180)
     private Double latitude;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Double getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
-    }
-
-    public Double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
 }
