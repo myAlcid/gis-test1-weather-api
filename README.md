@@ -1,5 +1,5 @@
-# gis-test1-weather-api
-*Weather api - this is Api that can give you current weather data for any location on Earth. This is a pet project, where I`m trying to implement my knowledge in Java and Spring.*
+# weather-api
+*Weather api is Api that can give you current and historical weather data from any location on Earth.*
 
 ## Configuration
 To start working with such API you should configure `application.properties` file:
@@ -11,7 +11,7 @@ spring.datasource.password=password
 ````
 
 ## Examples 
-This is examples how work endpoints:
+This is the example how endpoints work:
 
 #### Add new users in system
 <details>
@@ -34,7 +34,7 @@ You successfully added user
 -------------------------------------
 </details>
 
-#### Login in system
+#### Sign in to get your authorization token
 <details>
   <summary>POST localhost:8080/users/login</summary>
   
@@ -112,11 +112,12 @@ Response body:
   
 -------------------------------------  
 
-Add token in request header: 
+Add token in request header. 
 
-![image](https://user-images.githubusercontent.com/85901740/181200700-21ae84d6-2eee-46d4-9ea3-f0cb510007d8.png)
-![image](https://user-images.githubusercontent.com/85901740/181200749-53520875-d04a-483b-acc7-e4b356c1f28d.png)
-
+Headers:
+````
+Autorisation: Bearer {your-token}
+````
 
 Response body:  
 ````json
@@ -143,11 +144,12 @@ Response body:
   
 -------------------------------------  
 
-Add token in request header: 
+Add token in request header. 
 
-![image](https://user-images.githubusercontent.com/85901740/181200700-21ae84d6-2eee-46d4-9ea3-f0cb510007d8.png)
-![image](https://user-images.githubusercontent.com/85901740/181200749-53520875-d04a-483b-acc7-e4b356c1f28d.png)
-
+Headers:
+````
+Autorisation: Bearer {your-token}
+````
 
 Response body:  
 ````json
