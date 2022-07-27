@@ -1,5 +1,5 @@
 # weather-api
-*Weather api is Api that can give you current and historical weather data from any location on Earth.*
+*Weather api is Api that can give you current weather and history of weather data from any location on Earth.*
 
 ## Configuration
 To start working with such API you should configure `application.properties` file:
@@ -57,7 +57,7 @@ eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VybmFtZSIsImV4cCI6MTY1ODkxMzE5MiwiaWF0IjoxNjU
 
 </details>
 
-#### Add "city" in system
+#### Add `city` in system
 <details>
   <summary>POST localhost:8080/cities</summary>
   
@@ -86,11 +86,14 @@ Response body:
 
 </details>
 
-#### Find "city" by name
+#### Find `city` by name
 <details>
   <summary>GET localhost:8080/cities?city=Chernivtsi</summary>
   
 -------------------------------------  
+
+Request params:
+- `city` - city name;
 
 Response body:  
 ````json
@@ -106,18 +109,19 @@ Response body:
 
 </details>
 
-#### Get current weather
+#### Get current `weather` by `city` name
 <details>
   <summary>GET localhost:8080/weather/current?city=Lviv</summary>
   
 -------------------------------------  
 
-Add token in request header. 
-
 Headers:
 ````
-Autorisation: Bearer {your-token}
+Autorisation: Bearer {token-received-via-login-endpoint}
 ````
+
+Request params:
+- `city` - city name;
 
 Response body:  
 ````json
@@ -138,18 +142,21 @@ Response body:
 
 </details>
 
-#### Get weather history
+#### Get `weather` history by `city` name and time period
 <details>
   <summary>GET localhost:8080/weather/history?city=Lviv&from=1657814005&to=1658667602</summary>
   
 -------------------------------------  
 
-Add token in request header. 
-
 Headers:
 ````
-Autorisation: Bearer {your-token}
+Autorisation: Bearer {token-received-via-login-endpoint}
 ````
+
+Request params:
+- `city` - city name;
+- `from` - timestamp of start date;
+- `to` - timestamp of finish date.
 
 Response body:  
 ````json
